@@ -4,7 +4,7 @@
 
   margin: 0 auto;
 }
-
+  
 #page-create-point header {
   margin-top: 48px;
 
@@ -200,4 +200,48 @@
 .items-grid li.selected {
   background: #E1FAEC;
   border: 2px solid #34CB79;
+}
+
+@media(max-width: 500px) {
+  #page-create-point form .field-group {
+    display: block;
+  }
+
+  #page-create-point header a {
+    padding-right: 30px;
+  }
+  #page-create-point form .field-group .field + .field {
+    margin-left: 0;
+  }
+
+  #page-create-point form {
+    margin: 26px;
+    padding: 24px;
+}
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    list-style: none;
+  }
+  
+  .items-grid li {
+    height: 80px;
+    padding: 8px 0px 5px;
+    width: 90px;
+  }
+
+  header img {
+    padding-left: 30px;
+  }
+  li img {
+    width: 40px;
+  }
+  li span {
+    font-size: 8px;
+  }
+  #page-create-point form button {
+    width: 100%;
+  }
 }
