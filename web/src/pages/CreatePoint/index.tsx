@@ -9,6 +9,7 @@ import axios from 'axios';
 import './styles.css';
 
 import logo from '../../assets/logo.svg'
+import Modal from '../../components/ValidationModal';
 
 //sempre que se cria um estado para um [] ou um {} se precisa manualmente informar o tipo da varivel que sera armazena 
 interface Item {
@@ -18,6 +19,7 @@ interface Item {
 }
 
 interface IBGEUFResponse {
+    nome: string,
     sigla: string;
 }
 
@@ -27,7 +29,7 @@ interface IBGECityResponse {
 
 const CreatePoint = () => {
     const [items, setItems] = useState<Item[]>([]);
-    const [ufs, setUfs] = useState<string[]>([]);
+    const [ufs, setUfs] = useState<IBGEUFResponse[]>([]);
     const [cities, setCities] = useState<string[]>([]);
 
     const [initialPosition, setInitialPosition] = useState<[number, number]>([-25.4415676, -54.4027277]);
@@ -41,6 +43,7 @@ const CreatePoint = () => {
     const [selectedCity, setSelectedCity] = useState('0');
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0]);
     const [selectedItems, setSelectedItems] = useState<number[]>([]);
+    const [showModal, setShowModal] = useState(false);
 
     const history = useHistory();
 
@@ -60,7 +63,8 @@ const CreatePoint = () => {
 
     useEffect(() => {
         axios.get<IBGEUFResponse[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados').then(response => {
-            const ufInitials = response.data.map(uf => uf.sigla);
+            const ufInitials = response.data;
+
             setUfs(ufInitials);
         });
     }, []);
@@ -129,6 +133,8 @@ const CreatePoint = () => {
             items
         };
 
+        setShowModal(true);
+
         await api.post('points', data);
 
         setTimeout(() => {
@@ -139,6 +145,7 @@ const CreatePoint = () => {
 
     return (
         <div id="page-create-point">
+        <Modal show={showModal} />
             <header>
                 <img src={logo} alt="Ecoleta" />
                 <Link to="/" >
@@ -213,7 +220,7 @@ const CreatePoint = () => {
                             >
                                 <option value="0">Selecione uma UF</option>
                                 {ufs.map(uf => (
-                                    <option key={uf} value={uf}>{uf}</option>
+                                    <option key={uf.sigla} value={uf.sigla}>{`${uf.nome} (${uf.sigla})`}</option>
                                 ))}
                             </select>
                         </div>

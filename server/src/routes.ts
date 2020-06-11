@@ -19,6 +19,6 @@ routes.get('/points/:id', pointsController.show);
  * show: exibir um únoco valor da lista
  * create: criar
  * update: atualizar
- * delete: deleta
+ * delete: deleta DELETE FROM (tabela)
  */
 export default routes;

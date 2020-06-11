@@ -1,0 +1,13 @@
+.success-message p {
+    font-weight: bold;
+    font-size: 36px;
+    color: #F0F0F5;
+}
+
+.success-message img {
+    position: relative;
+    left: 37.5%;
+    right: 8.33%;
+    top: 16.67%;
+    bottom: 41.62%;
+}
