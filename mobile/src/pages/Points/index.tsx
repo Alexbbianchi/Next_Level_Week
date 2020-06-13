@@ -24,8 +24,8 @@ interface Point {
 }
 
 interface Params {
-    uf: string;
-    city: string;
+    selectedUf: string;
+    selectedCity: string;
 }
 const Points = () => {
     const [items, setItems] = useState<Item[]>([]);
@@ -34,7 +34,7 @@ const Points = () => {
     const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0]);
     const navigation = useNavigation();
     const route = useRoute();
-    const reouteParams = route.params as Params;
+    const routeParams = route.params as Params;
 
     useEffect(() => {
         async function loadPosition() {
@@ -65,8 +65,8 @@ const Points = () => {
     useEffect(() => {
         api.get('points', {
             params: {
-                city: reouteParams.city,
-                uf: reouteParams.uf,
+                city: routeParams.selectedCity,
+                uf: routeParams.selectedUf,
                 items: selectedItems
             }
         }).then(response => {
